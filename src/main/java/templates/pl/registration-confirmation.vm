@@ -1,0 +1,10 @@
+<html>
+<body>
+<h3>Witaj ${user.name} ${user.surname}, dziękujemy za rejestrację w serwisie webCourses!</h3>
+
+<div>
+   Kliknij w link aby aktywować swoje konto: <a href="${activationURL}">Aktywuj konto</a>.
+</div>
+</body>
+
+</html>

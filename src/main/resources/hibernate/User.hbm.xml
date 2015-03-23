@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.user.User" table="users">
+		<id name="userId" type="java.lang.Long">
+			<column name="USER_ID" />
+			<generator class="identity" />
+		</id>
+
+		<property name="name" type="string">
+			<column name="name" length="45" />
+		</property>
+
+		<property name="surname" type="string">
+			<column name="surname" length="45" />
+		</property>
+
+		<property name="email" type="string">
+			<column name="email" length="100" />
+		</property>
+
+		<property name="phone" type="string">
+			<column name="phone" length="15" />
+		</property>
+
+		<property name="password" type="string">
+			<column name="password" length="32" />
+		</property>
+
+		<property name="newPassword" type="string">
+			<column name="new_password" length="32" />
+		</property>
+
+		<property name="lostPasswordCode" type="string">
+			<column name="lost_password_code" length="32" />
+		</property>
+
+		<property name="confirmationCode" type="string">
+			<column name="confirmation_code" length="32" />
+		</property>
+
+		<property name="lostPasswordDate" type="timestamp">
+			<column name="lost_password_date" length="19" />
+		</property>
+
+		<property name="enabled" type="org.hibernate.type.NumericBooleanType">
+			<column name="enabled" />
+		</property>
+	
+		<property name="role" column="role">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.webCourses.app.model.user.Role</param>
+				<param name="type">12</param>
+			</type>
+		</property>
+		
+		<property name="avatar" type="string">
+			<column name="avatar" length="32" />
+		</property>
+
+		<property name="createdAt" type="timestamp">
+			<column name="created_at" length="19" />
+		</property>
+		
+		<property name="description" type="string">
+			<column name="description" />
+		</property>
+		
+		<property name="url" type="string">
+			<column name="url" />
+		</property>
+		
+		<property name="country" type="string">
+			<column name="country" />
+		</property>
+		
+		<property name="birthdayDate" type="java.sql.Date">
+			<column name="birthday_date" />
+		</property>
+		
+	</class>
+</hibernate-mapping>

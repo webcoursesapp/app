@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources 
+		directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- START TILES SUPPORT -->
+	<!-- <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" /> -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- END TILES SUPPORT -->
+
+	<!-- START LOCALES SUPPORT -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/classes/messages" />
+	</bean>
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang"></property>
+		</bean>
+	</mvc:interceptors>
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="pl" />
+	</bean>
+	<!-- END LOCALES SUPPORT -->
+
+	<!-- START VALIDATOR MESSAGES -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	<!-- END VALIDATOR MESSAGES -->
+
+	<!-- AUTOWIRED PROCESSOR -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<context:component-scan base-package="com.webCourses.app" />
+
+	<!-- HIBERNATE SUPPORT -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<array>
+				<value>com.webCourses.app</value>
+			</array>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>/hibernate/User.hbm.xml</value>
+				<value>/hibernate/Course.hbm.xml</value>
+				<value>/hibernate/Material.hbm.xml</value>
+				<value>/hibernate/Group.hbm.xml</value>
+				<value>/hibernate/Member.hbm.xml</value>
+				<value>/hibernate/Country.hbm.xml</value>
+				<value>/hibernate/Answer.hbm.xml</value>
+				<value>/hibernate/Test.hbm.xml</value>
+				<value>/hibernate/Question.hbm.xml</value>
+				<value>/hibernate/TestResult.hbm.xml</value>
+				<value>/hibernate/AnswerResult.hbm.xml</value>
+				<value>/hibernate/QuestionResult.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/webCourses?generateSimpleParameterMetadata=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="UserDao" class="com.webCourses.app.dao.user.HibernateUserDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="CourseDao" class="com.webCourses.app.dao.course.HibernateCourseDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="MaterialDao" class="com.webCourses.app.dao.material.HibernateMaterialDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="GroupDao" class="com.webCourses.app.dao.group.HibernateGroupDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="MemberDao" class="com.webCourses.app.dao.member.HibernateMemberDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="CountryDao" class="com.webCourses.app.dao.country.HibernateCountryDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="TestDao" class="com.webCourses.app.dao.test.HibernateTestDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="TestResultDao" class="com.webCourses.app.dao.test.result.HibernateTestResultDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- <tx:annotation-driven /> -->
+	<!-- END HIBERNATE SUPPORT -->
+
+
+	<!-- EMAIL SERVICE -->
+	<bean id="mailService" class="com.webCourses.app.services.EmailService" />
+
+	<!-- Mail sender configured for using Gmail -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="username" value="webcoursesapp" />
+		<property name="password" value="webCoursesPassword123!@#" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- START EMAIL TEMPLATES -->
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
+	<!-- END EMAIL TEMPLATES -->
+
+	<!-- TO UPLOAD FILES -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+</beans>

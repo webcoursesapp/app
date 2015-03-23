@@ -1,0 +1,10 @@
+<html>
+<body>
+<h3>Hi ${user.name} ${user.surname}, welcome to the webCourses!</h3>
+
+<div>
+   Click this link to activate your account <a href="${activationURL}">Activate your account</a>.
+</div>
+</body>
+
+</html>

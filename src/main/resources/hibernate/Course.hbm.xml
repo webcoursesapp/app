@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.course.Course" table="courses">
+
+		<id name="courseId" type="java.lang.Long">
+			<column name="course_id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="user" class="com.webCourses.app.model.user.User" lazy="false" column="user_id" />
+
+		<property name="title" type="string">
+			<column name="title" length="100" />
+		</property>
+
+		<property name="description" type="string">
+			<column name="description" />
+		</property>
+
+		<property name="password" type="string">
+			<column name="password" length="32" />
+		</property>
+
+		<property name="createdAt" type="timestamp">
+			<column name="created_at" length="19" />
+		</property>
+		
+		<property name="active" type="java.lang.Boolean">
+			<column name="active" sql-type="tinyint" />
+		</property>
+		
+		<list name="materials" table="materials" inverse="true" lazy="false" fetch="select">
+			<key column="course_id" />
+			<list-index column="material_id" />
+			<one-to-many class="com.webCourses.app.model.material.Material" />
+		</list>
+		
+		<list name="tests" table="tests" inverse="true" lazy="false" fetch="select">
+			<key column="course" />
+			<list-index column="test_id" />
+			<one-to-many class="com.webCourses.app.model.test.Test" />
+		</list>
+		
+		
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.test.Test" table="tests">
+
+		<id name="testId" type="java.lang.Long">
+			<column name="test_id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="user" class="com.webCourses.app.model.user.User" lazy="false" column="user" />
+		<many-to-one name="course" class="com.webCourses.app.model.course.Course" lazy="false" column="course" />
+
+		<property name="title" type="string">
+			<column name="title" length="100" />
+		</property>
+
+		<property name="created" type="timestamp">
+			<column name="created" />
+		</property>
+
+		<property name="modified" type="timestamp">
+			<column name="modified" />
+		</property>
+
+		<property name="password" type="string">
+			<column name="password" length="32" />
+		</property>
+
+		<property name="time" type="integer">
+			<column name="time" />
+		</property>
+
+		<property name="visibility" type="java.lang.Boolean">
+			<column name="visibility" sql-type="tinyint" />
+		</property>
+
+		<property name="startDate" type="timestamp">
+			<column name="startDate" />
+		</property>
+
+		<property name="endDate" type="timestamp">
+			<column name="endDate" />
+		</property>
+
+		<property name="random" type="java.lang.Boolean">
+			<column name="random" sql-type="tinyint" />
+		</property>
+
+		<property name="questionsCount" type="integer">
+			<column name="questionsCount" />
+		</property>
+
+		<list name="questions" table="questions" inverse="true" lazy="false" cascade="all">
+			<key column="test" />
+			<list-index column="question_id" />
+			<one-to-many class="com.webCourses.app.model.test.question.Question" />
+		</list>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.test.result.AnswerResult" table="answer_results">
+
+		<id name="answerResultId" type="java.lang.Long">
+			<column name="answerResult_id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="testResult" class="com.webCourses.app.model.test.result.TestResult" column="testResult" not-null="true" fetch="select" />
+		<many-to-one name="answer" class="com.webCourses.app.model.test.answer.Answer" column="answer" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.test.answer.Answer" table="answers">
+
+		<id name="answerId" type="java.lang.Long">
+			<column name="answer_id" />
+			<generator class="identity" />
+		</id>
+		
+		<many-to-one name="question" class="com.webCourses.app.model.test.question.Question" lazy="false" column="question" />
+
+		<property name="content" type="string">
+			<column name="content" />
+		</property>
+
+		<property name="correct" type="java.lang.Boolean">
+			<column name="correct" sql-type="tinyint" />
+		</property>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.material.Material" table="materials">
+
+		<id name="materialId" type="java.lang.Long">
+			<column name="material_id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="course" class="com.webCourses.app.model.course.Course" lazy="false" column="course_id" />
+		<many-to-one name="createdUser" class="com.webCourses.app.model.user.User" lazy="false" column="user_id" />
+		
+		<property name="file" type="string">
+			<column name="file" />
+		</property>
+		
+		<property name="orgFileName" type="string">
+			<column name="org_file_name" />
+		</property>
+		
+		<property name="title" type="string">
+			<column name="title" length="100" />
+		</property>
+
+		<property name="description" type="string">
+			<column name="description" />
+		</property>
+
+		<property name="orderNumber" type="integer">
+			<column name="order_number" />
+		</property>
+
+		<property name="createdAt" type="timestamp">
+			<column name="created_at" length="19" />
+		</property>
+
+	</class>
+</hibernate-mapping>

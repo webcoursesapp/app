@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.group.Group" table="groups">
+
+		<id name="groupId" type="java.lang.Long">
+			<column name="group_id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="course" class="com.webCourses.app.model.course.Course" lazy="false" column="course_id" />
+		<many-to-one name="createdUser" class="com.webCourses.app.model.user.User" lazy="false" column="user_id" />
+		<list name="members" table="members" inverse="true" lazy="false" fetch="select">
+			<key column="group_id" />
+			<list-index column="member_id" />
+			<one-to-many class="com.webCourses.app.model.member.Member" />
+		</list>
+
+		<property name="name" type="string">
+			<column name="name" length="100" />
+		</property>
+
+		<property name="createdAt" type="timestamp">
+			<column name="created_at" length="19" />
+		</property>
+
+	</class>
+</hibernate-mapping>

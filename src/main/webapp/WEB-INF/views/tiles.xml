@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="baseLayout" template="/WEB-INF/views/tiles/BaseLayout.jsp">
+		<put-attribute name="sideTitle" value="Internetowa platforma kursów online" />
+		<!-- <put-attribute name="header" value="/WEB-INF/views/tiles/Header.jsp" /> -->
+		<put-attribute name="topNavigation" value="/WEB-INF/views/tiles/TopNavigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/tiles/Content.jsp" />
+		<put-attribute name="leftMenuBar" value="/WEB-INF/views/tiles/LeftMenuBar.jsp" />
+		<!-- <put-attribute name="footer" value="/WEB-INF/views/tiles/Footer.jsp" /> -->
+	</definition>
+</tiles-definitions>

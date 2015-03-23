@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.webCourses.app.model.test.result.TestResult" table="test_results">
+
+		<id name="testResultId" type="java.lang.Long">
+			<column name="testResult_id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="user" class="com.webCourses.app.model.user.User" lazy="false" column="user" />
+		<many-to-one name="test" class="com.webCourses.app.model.test.Test" lazy="false" column="test" />
+
+		<property name="startDate" type="timestamp">
+			<column name="startDate" />
+		</property>
+
+		<property name="endDate" type="timestamp">
+			<column name="endDate" />
+		</property>
+
+		<list name="questionResults" table="questionresults" inverse="true" lazy="false" cascade="save-update" >
+			<key column="testResult" not-null="true" />
+			<list-index column="questionResult_id" />
+			<one-to-many class="com.webCourses.app.model.test.result.QuestionResult" />
+		</list>
+
+		<list name="answerResults" table="answerresults" inverse="true" lazy="false" cascade="save-update">
+			<key column="testResult" not-null="true" />
+			<list-index column="answerResult_id" />
+			<one-to-many class="com.webCourses.app.model.test.result.AnswerResult" />
+		</list>
+
+	</class>
+</hibernate-mapping>
